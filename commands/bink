@@ -1,0 +1,48 @@
+const { channelID } = require('../config.json');
+const { MessageAttachment } = require('discord.js');
+const { prefix, token, serverID } = require('../config.json');
+const Discord = require('discord.js');
+
+module.exports = {
+	name: 'bink',
+	description: 'sends picture to tagged user',
+	guildOnly: true,
+	args: true,
+	usage: '<user>',
+	cooldown: 5,
+	async execute(message, args) {
+		let taggedMember = (message.mentions.members.first());
+
+		const mainChannel = message.guild.channels.cache.get(channelID); 
+		
+		// if the channel does not exist; print out the channel is not correct
+		if (!mainChannel) {
+            console.log('Failed.'); 
+			return; 
+        }
+        
+		// checks if the tagged member exists or not 
+		if (!taggedMember) {
+			message.channel.send(`${args[0]} is not a valid user!`);
+			taggedMember = message.member;
+
+			if (!taggedMember.voice.channel) {
+				return;
+			}
+		}
+
+		if (!taggedMember) {
+			message.channel.send(`${args[0]} is not a valid user!`);
+			taggedMember = message.member;
+
+			if (!taggedMember.voice.channel) {
+				return;
+			}
+		}
+
+		const image = new MessageAttachment('./images/image_name.jpg');
+
+		message.channel.send('message', image);
+		console.log(`${message.author.username} sent an image to ${taggedMember.user.username}`);
+	},
+};
