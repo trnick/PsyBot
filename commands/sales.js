@@ -77,7 +77,7 @@ module.exports = {
                         .setColor('#0099ff')
                         .setURL(urlClick1)
                         .setTitle(`Steam Link : ${nameGame}`)
-                        .setDescription('Game is free, dumbass.');
+                        .setDescription('Game is free.');
 
                     message.channel.send(isFree);
                     console.log('Image sent.')
